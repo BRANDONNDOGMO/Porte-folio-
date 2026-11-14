@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio – Harold Brandon NDOGMO KANA</title>
+  <meta name="description" content="Portfolio de Harold Brandon NDOGMO KANA, étudiant en Humanités numériques à l'ENSPY, futur data scientist." />
+
+  <!-- Polices Google (tu peux les changer ici et dans css/style.css, variables --font-titre / --font-texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Décor : halo qui suit la souris + formes flottantes -->
+  <div class="halo" id="halo"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav">
+    <a href="#accueil" class="logo" id="logo">HB.</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu">☰</button>
+    <nav id="menu">
+      <a href="#apropos">À propos</a>
+      <a href="#competences">Compétences</a>
+      <a href="#projets">Projets</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#contact" class="btn-nav">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ ACCUEIL ============ -->
+    <section id="accueil" class="hero">
+      <div class="hero-texte">
+        <p class="sur-titre">Bonjour, je suis</p>
+        <h1 id="hero-nom">Harold Brandon</h1>
+        <p class="typed-ligne"><span id="typed"></span><span class="curseur">|</span></p>
+        <p class="accroche" id="hero-accroche"></p>
+        <div class="hero-boutons">
+          <a href="#projets" class="btn btn-plein">Voir mes projets</a>
+          <a href="#contact" class="btn btn-contour">Me contacter</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <!-- ⬇ Remplace images/profil.svg par ta photo (ex : images/profil.jpg) et change le chemin ici -->
+        <img id="photo-profil" src="images/profil.jpg" alt="Photo de Harold Brandon" />
+      </div>
+    </section>
+
+    <!-- ============ À PROPOS ============ -->
+    <section id="apropos" class="section reveal">
+      <h2 class="titre-section"><span>01</span> À propos</h2>
+      <div class="apropos-grille">
+        <div id="apropos-texte" class="apropos-texte"></div>
+        <ul class="chiffres" id="apropos-infos"></ul>
+      </div>
+    </section>
+
+    <!-- ============ COMPÉTENCES ============ -->
+    <section id="competences" class="section reveal">
+      <h2 class="titre-section"><span>02</span> Compétences</h2>
+      <div class="competences-grille" id="competences-liste"></div>
+    </section>
+
+    <!-- ============ PROJETS ============ -->
+    <section id="projets" class="section reveal">
+      <h2 class="titre-section"><span>03</span> Projets</h2>
+      <p class="intro-section">Clique sur un projet pour en voir le détail, laisser une appréciation ou un commentaire.</p>
+      <div class="projets-grille" id="projets-liste"></div>
+    </section>
+
+    <!-- ============ PARCOURS ============ -->
+    <section id="parcours" class="section reveal">
+      <h2 class="titre-section"><span>04</span> Parcours</h2>
+      <div class="timeline" id="parcours-liste"></div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="section reveal">
+      <h2 class="titre-section"><span>05</span> Contact</h2>
+      <div class="contact-grille">
+        <div>
+          <p class="intro-section">Une idée, une opportunité, un retour sur mon travail ? Écris-moi, je réponds avec plaisir.</p>
+          <div class="liens-contact" id="liens-contact"></div>
+        </div>
+        <form class="formulaire" id="form-contact" novalidate>
+          <label>Nom *<input type="text" name="nom" required /></label>
+          <label>E-mail *<input type="email" name="email" required /></label>
+          <label>Téléphone<input type="tel" name="telephone" /></label>
+          <label>Message *<textarea name="message" rows="5" required></textarea></label>
+          <!-- Anti-spam : champ caché que seuls les robots remplissent -->
+          <input type="text" name="_gotcha" class="piege" tabindex="-1" autocomplete="off" />
+          <button type="submit" class="btn btn-plein">Envoyer</button>
+          <p class="statut" id="statut-contact" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="annee"></span> Harold Brandon NDOGMO KANA · Fait avec ♥ à Yaoundé</p>
+  </footer>
+
+  <!-- ============ FENÊTRE DÉTAIL PROJET + COMMENTAIRES ============ -->
+  <dialog id="modal-projet" class="modal">
+    <button class="modal-fermer" id="modal-fermer" aria-label="Fermer">✕</button>
+    <img id="modal-image" class="modal-image" alt="" />
+    <div class="modal-corps">
+      <h3 id="modal-titre"></h3>
+      <p id="modal-description"></p>
+      <ul class="tags" id="modal-tags"></ul>
+      <p class="modal-role" id="modal-role"></p>
+      <div class="modal-liens" id="modal-liens"></div>
+
+      <hr />
+      <h4>Donner mon avis sur ce projet</h4>
+      <form class="formulaire" id="form-projet" novalidate>
+        <input type="hidden" name="projet" id="champ-projet" />
+        <label>Nom *<input type="text" name="nom" required /></label>
+        <div class="deux-colonnes">
+          <label>E-mail<input type="email" name="email" /></label>
+          <label>Téléphone<input type="tel" name="telephone" /></label>
+        </div>
+        <fieldset class="etoiles">
+          <legend>Appréciation</legend>
+          <input type="radio" id="e5" name="note" value="5" /><label for="e5" title="5 étoiles">★</label>
+          <input type="radio" id="e4" name="note" value="4" /><label for="e4" title="4 étoiles">★</label>
+          <input type="radio" id="e3" name="note" value="3" /><label for="e3" title="3 étoiles">★</label>
+          <input type="radio" id="e2" name="note" value="2" /><label for="e2" title="2 étoiles">★</label>
+          <input type="radio" id="e1" name="note" value="1" /><label for="e1" title="1 étoile">★</label>
+        </fieldset>
+        <label>Commentaire *<textarea name="message" rows="4" required></textarea></label>
+        <input type="text" name="_gotcha" class="piege" tabindex="-1" autocomplete="off" />
+        <button type="submit" class="btn btn-plein">Envoyer mon avis</button>
+        <p class="statut" id="statut-projet" role="status"></p>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Ordre important : config → données → logique -->
+  <script src="js/config.js"></script>
+  <script src="js/projets.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
